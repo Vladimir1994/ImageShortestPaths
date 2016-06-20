@@ -75,6 +75,9 @@ void ImageProvider::setStartPoint(int x, int y)
     startPoint_.setX(x);
     startPoint_.setY(y);
     startPointSelected_ = true;
+    for (auto &legend: legends_) {
+        legend.setComputed(false);
+    }
     updateImage();
     startPointChanged();
 }
