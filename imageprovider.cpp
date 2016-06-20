@@ -37,6 +37,7 @@ QImage ImageProvider::requestImage(const QString &, QSize *, const QSize &)
 void ImageProvider::setImage(const QImage &image)
 {
     imageOnScreen_ = image;
+    clearResults();
     updateImage();
 }
 
@@ -45,6 +46,7 @@ bool ImageProvider::loadImage(const QString &url)
     QString path = url.mid(8);
     if (!originalImage_.load(path))
         return false;
+    clearResults();
     updateImage();
     return true;
 }
