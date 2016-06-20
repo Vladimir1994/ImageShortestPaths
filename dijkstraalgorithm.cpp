@@ -1,7 +1,9 @@
 #include "dijkstraalgorithm.h"
 
+#include <QDebug>
+#include <QElapsedTimer>
+
 #include <limits>
-#include <algorithm>
 
 DijkstraAlgorithm::DijkstraAlgorithm(QSharedPointer<PixelMetric> metric):
     ShortestPathsAlgorithm(metric)
@@ -14,11 +16,12 @@ PathsHolder DijkstraAlgorithm::computeShortestPaths(const QImage &image, const Q
 
     distances_.clear();
     previous_.clear();
-    notVisited_.clear();
 
     auto comparator = [&] (int left, int right) {
         return distances_[left] > distances_[right];
     };
+
+    std::priority_queue<int, std::vector<int>, decltype(comparator)> notVisited_(comparator);
 
     for (int i = 0; i < image.width(); i++) {
         for (int j = 0; j < image.height(); j++) {
@@ -27,16 +30,14 @@ PathsHolder DijkstraAlgorithm::computeShortestPaths(const QImage &image, const Q
                 distances_[pointToIndex(vertex)] = 0;
             else
                 distances_[pointToIndex(vertex)] = std::numeric_limits<double>::max();
-
-            notVisited_.push_back(pointToIndex(vertex));
-            std::push_heap(begin(notVisited_), end(notVisited_), comparator);
         }
     }
 
+    notVisited_.push(pointToIndex(startPoint));
+
     while (!notVisited_.empty()) {
-        std::pop_heap(begin(notVisited_), end(notVisited_), comparator);
-        int smallest = notVisited_.back();
-        notVisited_.pop_back();
+        int smallest = notVisited_.top();
+        notVisited_.pop();
 
         std::vector<int> neighbours = getNeighbours(smallest);
 
@@ -47,7 +48,7 @@ PathsHolder DijkstraAlgorithm::computeShortestPaths(const QImage &image, const Q
             if (alt < distances_[neighbor]) {
                 distances_[neighbor] = alt;
                 previous_[neighbor] = smallest;
-                std::make_heap(begin(notVisited_), end(notVisited_), comparator);
+                notVisited_.push(neighbor);
             }
         }
     }

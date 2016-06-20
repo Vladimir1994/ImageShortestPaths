@@ -6,6 +6,7 @@
 #include <QHash>
 
 #include <vector>
+#include <queue>
 
 class DijkstraAlgorithm: public ShortestPathsAlgorithm
 {
@@ -18,7 +19,6 @@ public:
 private:
     QHash<int, double> distances_;
     QHash<int, int> previous_;
-    std::vector<int> notVisited_;
     size_t imWidth_;
     size_t imHeight_;
 
