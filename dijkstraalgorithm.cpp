@@ -1,8 +1,5 @@
 #include "dijkstraalgorithm.h"
 
-#include <QDebug>
-#include <QElapsedTimer>
-
 #include <limits>
 #include <queue>
 
