@@ -6,7 +6,6 @@
 #include <QHash>
 
 #include <vector>
-#include <queue>
 
 class DijkstraAlgorithm: public ShortestPathsAlgorithm
 {

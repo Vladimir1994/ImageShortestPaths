@@ -4,6 +4,7 @@
 #include <QElapsedTimer>
 
 #include <limits>
+#include <queue>
 
 DijkstraAlgorithm::DijkstraAlgorithm(QSharedPointer<PixelMetric> metric):
     ShortestPathsAlgorithm(metric)
