@@ -20,21 +20,26 @@ class ImageProvider : public QObject, public QQuickImageProvider
 {
     Q_OBJECT
     Q_PROPERTY(bool imageExists READ imageExists NOTIFY imageChanged)
-    Q_PROPERTY(bool startPointSelected READ startPointSelected NOTIFY startPointChanged)
-    Q_PROPERTY(QColor startPointColor READ startPointColor NOTIFY startPointColorChanged)
+    Q_PROPERTY(bool startPointSelected READ startPointSelected
+               NOTIFY startPointChanged)
+    Q_PROPERTY(QColor startPointColor READ startPointColor
+               NOTIFY startPointColorChanged)
     Q_PROPERTY(QColor pathOneColor READ pathOneColor NOTIFY pathColorChanged)
     Q_PROPERTY(QColor pathTwoColor READ pathTwoColor NOTIFY pathColorChanged)
-    Q_PROPERTY(QColor pathThreeColor READ pathThreeColor NOTIFY pathColorChanged)
+    Q_PROPERTY(QColor pathThreeColor READ pathThreeColor
+               NOTIFY pathColorChanged)
     Q_PROPERTY(QColor pathFourColor READ pathFourColor NOTIFY pathColorChanged)
     Q_PROPERTY(bool algorithmInProcess READ algorithmInProcess
                WRITE setAlgorithmInProcess NOTIFY algorithmInProcessChanged)
 
 public:
-    explicit ImageProvider(QObject *parent = 0,
-                           QSharedPointer<ShortestPathsAlgorithm> algorithm
-                           = QSharedPointer<ShortestPathsAlgorithm>(new DijkstraAlgorithm));
+    explicit
+        ImageProvider(QObject *parent = nullptr,
+                      QSharedPointer<ShortestPathsAlgorithm> algorithm
+                      = QSharedPointer<ShortestPathsAlgorithm>(new DijkstraAlgorithm));
 
-    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
+    QImage requestImage(const QString &id, QSize *size,
+                        const QSize &requestedSize) override;
 
     Q_INVOKABLE void setImage(const QImage &image);
     Q_INVOKABLE bool loadImage(const QString &url);
@@ -78,11 +83,11 @@ private:
 
     QPoint startPoint_;
     bool startPointSelected_;
-    size_t startPointColorIndex_;
+    std::size_t startPointColorIndex_;
 
     QSharedPointer<ShortestPathsAlgorithm> algorithm_;
 
-    const size_t metricsCount_;
+    const std::size_t metricsCount_;
     QVector<QSharedPointer<PixelMetric>> metrics_;
     QVector<LegendHolder> legends_;
     QVector<PathsHolder> paths_;

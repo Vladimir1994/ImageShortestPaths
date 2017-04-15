@@ -13,19 +13,20 @@ public:
     DijkstraAlgorithm(QSharedPointer<PixelMetric> metric =
                       QSharedPointer<PixelMetric>(new PixelMetricOne));
 
-    PathsHolder computeShortestPaths(const QImage &image, const QPoint &startPoint);
+    PathsHolder computeShortestPaths(const QImage &image,
+                                     const QPoint &startPoint);
 
 private:
     QHash<int, double> distances_;
     QHash<int, int> previous_;
-    size_t imWidth_;
-    size_t imHeight_;
+    std::size_t imWidth_;
+    std::size_t imHeight_;
 
 private:
-    QPoint minInRow(size_t row) const;
-    QPoint minInColumn(size_t col) const;
-    size_t pointToIndex(const QPoint &p) const;
-    QPoint indexToPoint(size_t index)  const;
+    QPoint minInRow(std::size_t row) const;
+    QPoint minInColumn(std::size_t col) const;
+    std::size_t pointToIndex(const QPoint &p) const;
+    QPoint indexToPoint(std::size_t index)  const;
     bool imageContainsIndex(const QPoint &p) const;
     std::vector<int> getNeighbours(int index);
     void restorePath(QVector<QPoint> &path, const QPoint &startPoint,

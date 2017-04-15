@@ -8,17 +8,18 @@
 #include <QDebug>
 #include <QPainter>
 
-ImageProvider::ImageProvider(QObject *parent, QSharedPointer<ShortestPathsAlgorithm> algorithm) :
-    QObject(parent),
-    QQuickImageProvider(QQuickImageProvider::Image),
-    startPointSelected_(false),
-    startPointColorIndex_(0),
-    algorithm_(algorithm),
-    metricsCount_(4),
-    metrics_(QVector<QSharedPointer<PixelMetric>>(metricsCount_)),
-    legends_(QVector<LegendHolder>(metricsCount_)),
-    paths_(QVector<PathsHolder>(metricsCount_)),
-    algorithmInProcess_(false)
+ImageProvider::ImageProvider(QObject *parent,
+                             QSharedPointer<ShortestPathsAlgorithm> algorithm)
+    : QObject(parent)
+    , QQuickImageProvider(QQuickImageProvider::Image)
+    , startPointSelected_(false)
+    , startPointColorIndex_(0)
+    , algorithm_(algorithm)
+    , metricsCount_(4)
+    , metrics_(QVector<QSharedPointer<PixelMetric>>(metricsCount_))
+    , legends_(QVector<LegendHolder>(metricsCount_))
+    , paths_(QVector<PathsHolder>(metricsCount_))
+    , algorithmInProcess_(false)
 {
     metrics_[0] = QSharedPointer<PixelMetric>(new PixelMetricOne);
     metrics_[1] = QSharedPointer<PixelMetric>(new PixelMetricTwo);
@@ -106,10 +107,11 @@ QColor ImageProvider::startPointColor() const
 
 void ImageProvider::computePaths()
 {
-    for (size_t i = 0; i < metricsCount_; i++) {
+    for (std::size_t i = 0u; i < metricsCount_; ++i) {
         algorithm_->setMetric(metrics_[i]);
         if (!legends_[i].computed() && legends_[i].enabled()) {
-            paths_[i] = algorithm_->computeShortestPaths(originalImage_, startPoint_);
+            paths_[i] = algorithm_->computeShortestPaths(originalImage_,
+                                                         startPoint_);
             legends_[i].setComputed(true);
         }
     }
@@ -187,7 +189,7 @@ void ImageProvider::updateImage()
 {
     imageOnScreen_ = originalImage_;
 
-    for (size_t i = 0; i < metricsCount_; i++) {
+    for (std::size_t i = 0u; i < metricsCount_; ++i) {
         if (legends_[i].computed() && legends_[i].enabled()) {
             QPainter pathsPainter(&imageOnScreen_);
             pathsPainter.setBrush(Qt::NoBrush);
@@ -202,7 +204,8 @@ void ImageProvider::updateImage()
     if (startPointSelected_) {
         QPainter startPointPainter(&imageOnScreen_);
         startPointPainter.setBrush(Qt::NoBrush);
-        startPointPainter.setPen(Palette::instance().getColor(startPointColorIndex_));
+        startPointPainter.setPen(Palette::instance().
+                                 getColor(startPointColorIndex_));
         startPointPainter.drawLine(startPoint_.x() - 5, startPoint_.y(),
                                    startPoint_.x() + 5, startPoint_.y());
         startPointPainter.drawLine(startPoint_.x(), startPoint_.y() - 5,

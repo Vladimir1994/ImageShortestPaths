@@ -1,14 +1,16 @@
 #include "legendholder.h"
 #include "palette.h"
 
-LegendHolder::LegendHolder() :
-    colorIndex_(0), enabled_(false), computed_(false)
+LegendHolder::LegendHolder()
+    : colorIndex_(0)
+    , enabled_(false)
+    , computed_(false)
 {}
 
 void LegendHolder::changeColor()
 {
     if (colorIndex_ < Palette::instance().size() - 1)
-        colorIndex_ ++;
+        colorIndex_++;
     else
         colorIndex_ = 0;
 }

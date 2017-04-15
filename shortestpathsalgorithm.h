@@ -13,7 +13,7 @@ class ShortestPathsAlgorithm
 {
 public:
     ShortestPathsAlgorithm(QSharedPointer<PixelMetric> metric);
-    virtual ~ShortestPathsAlgorithm() {}
+    virtual ~ShortestPathsAlgorithm();
 
     virtual PathsHolder computeShortestPaths(const QImage &image,
                                              const QPoint &startPoint) = 0;

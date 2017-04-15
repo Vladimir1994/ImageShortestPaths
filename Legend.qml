@@ -3,7 +3,6 @@ import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
 
 Window {
-
     width: 300
     height: 130
     maximumHeight: 130
@@ -71,7 +70,8 @@ Window {
             Rectangle {
                 width: 15
                 height: 15
-                color: boxThree.checked ? ImageProvider.pathThreeColor : "lightgray"
+                color: boxThree.checked ? ImageProvider.pathThreeColor
+                                        : "lightgray"
                 MouseArea {
                     anchors.fill: parent
                     onClicked: ImageProvider.changePathColor(2)
@@ -90,7 +90,8 @@ Window {
             Rectangle {
                 width: 15
                 height: 15
-                color: boxFour.checked ? ImageProvider.pathFourColor : "lightgray"
+                color: boxFour.checked ? ImageProvider.pathFourColor
+                                       : "lightgray"
                 MouseArea {
                     anchors.fill: parent
                     onClicked: ImageProvider.changePathColor(3)

@@ -23,7 +23,8 @@ ApplicationWindow {
                 id: imMa
                 anchors.fill: parent
                 acceptedButtons: Qt.LeftButton | Qt.RightButton
-                cursorShape: im.selectingStartPoint ? Qt.CrossCursor : Qt.ArrowCursor
+                cursorShape: im.selectingStartPoint ? Qt.CrossCursor
+                                                    : Qt.ArrowCursor
                 enabled: im.selectingStartPoint
                 onClicked: {
                     if (mouse.button & Qt.LeftButton)

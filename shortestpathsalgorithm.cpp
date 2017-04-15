@@ -1,7 +1,10 @@
 #include "shortestpathsalgorithm.h"
 
-ShortestPathsAlgorithm::ShortestPathsAlgorithm(QSharedPointer<PixelMetric> metric) :
-    metric_(metric)
+ShortestPathsAlgorithm::ShortestPathsAlgorithm(QSharedPointer<PixelMetric> metric)
+    : metric_(metric)
+{}
+
+ShortestPathsAlgorithm::~ShortestPathsAlgorithm()
 {}
 
 void ShortestPathsAlgorithm::setMetric(QSharedPointer<PixelMetric> metric)

@@ -12,7 +12,7 @@ public:
     static Palette & instance();
 
     QColor getColor(int idx);
-    size_t size();
+    std::size_t size();
 
     Palette(const Palette &) = delete;
     Palette & operator=(const Palette &) = delete;

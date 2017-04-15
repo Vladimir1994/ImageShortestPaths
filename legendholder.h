@@ -20,7 +20,7 @@ public:
     void setComputed(bool computed);
 
 private:
-    size_t colorIndex_;
+    std::size_t colorIndex_;
     bool enabled_;
     bool computed_;
 };
